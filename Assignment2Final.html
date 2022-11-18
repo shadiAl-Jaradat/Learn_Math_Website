@@ -1,0 +1,444 @@
+<!-- 
+Assignment 2
+Section : 1 (1pm to 2pm)
+Doctor: Sara Tedmuri
+Anton Bahou 20190144
+Shadi Al Jaradat 20190329
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2</title>
+    <script src="https://kit.fontawesome.com/e4e67e9ee7.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script>
+        var correct=0;
+        var z;
+        var Counter=0;
+        var flag=false;
+        var C="<h5><span class=\"\">1</span><span class=\"\">2</span><span class=\"\">3</span><span class=\"\">4</span><span class=\"\">5</span><span class=\"\">6</span><span class=\"\">7</span><span class=\"\">8</span><span class=\"\">9</span><span class=\"\">10</span></h5>";
+            function Check(B,Uanswer){
+                if(z==Uanswer){
+                    console.log(C);
+                    C=C.replace("class=\"\"","class=\"SG\"");
+                    correct++;
+                    Quiz(B);
+                    return;
+                }
+                else{
+                    C=C.replace("class=\"\"","class=\"SR\"");
+                    Quiz(B);
+                    return;
+                }
+            }
+            function getRandomInt(max){
+                return Math.floor(Math.random()*max);
+            }
+            function operation(B){
+                if(flag && B != 'R'){
+                    if(! window.confirm("Going to another quiz will reset this quiz , \n do you want to leave ? ") ) return;
+                }
+                flag=false;
+                $('#I1').removeClass('Test');
+                $('#I2').removeClass('Test');
+                $('#I3').removeClass('Test');
+                $('#I4').removeClass('Test');
+                $('#I5').removeClass('Test');
+                C="<h5><span class=\"\">1</span><span class=\"\">2</span><span class=\"\">3</span><span class=\"\">4</span><span class=\"\">5</span><span class=\"\">6</span><span class=\"\">7</span><span class=\"\">8</span><span class=\"\">9</span><span class=\"\">10</span></h5>";
+                
+                if(B==='+'){
+                    $('#I1').addClass('Test');
+                    Counter=0;
+                    correct=0;
+                    
+                    $( "#Explain" ).fadeOut( "slow", function() {
+                    document.getElementById("Explain").innerHTML="<h1>Addition</h1><h2>You have to use + sign with two random positive numbers.</h2><h3>Examples:<br>2 + 3 = 5<br> 10 + 12 = 22<br>36 + 54 = 90<br></h3><h2>If you want to test yourself click the quiz button below.</h2><div id='Quiz' onclick='Quiz(\"+\")'>Quiz</div>";
+                    $("#Explain").fadeIn("slow");
+                    });
+                    
+                }
+                else if(B==='-'){
+                    $('#I2').addClass('Test');
+                    Counter=0;
+                    correct=0;
+                    $( "#Explain" ).fadeOut( "slow", function() {
+                    document.getElementById("Explain").innerHTML="<h1>Subtraction</h1><h2>You have to use - sign with two random positive numbers.</h2><h3>Examples:<br>8 - 3 = 5<br>21 - 23 = - 2<br>83 - 27 = 56<br></h3><h2>If you want to test yourself click the quiz button below.</h2><div id='Quiz' onclick='Quiz(\"-\")'>Quiz</div>";
+                    $("#Explain").fadeIn("slow");
+                    });
+                }
+                else if(B==='*'){
+                    $('#I3').addClass('Test');
+                    Counter=0;
+                    correct=0;
+                    $( "#Explain" ).fadeOut( "slow", function() {
+                    document.getElementById("Explain").innerHTML="<h1>Multiplication</h1><h2>You have to use * sign with two random positive numbers.</h2><h3>Examples:<br>7 * 6 = 42<br>12 * 2 = 24<br>36 * 13 = 468<br></h3><h2>If you want to test yourself click the quiz button below.</h2><div id='Quiz' onclick='Quiz(\"*\")'>Quiz</div>";
+                    $("#Explain").fadeIn("slow");
+                    });
+                }
+                else if(B==='/'){
+                    $('#I4').addClass('Test');
+                    Counter=0;
+                    correct=0;
+                    $( "#Explain" ).fadeOut( "slow", function() {
+                    document.getElementById("Explain").innerHTML="<h1>Division</h1><h2>You have to use / sign with two random positive numbers (We round down the answer).</h2><h3>Examples:<br>7 / 2 = 3<br>54 / 6 = 9<br>99 / 13 = 7<br></h3><h2>If you want to test yourself click the quiz button below.</h2><div id='Quiz' onclick='Quiz(\"/\")'>Quiz</div>";
+                    $("#Explain").fadeIn("slow");
+                    });
+                }
+                else if(B==='M'){
+                    $('#I5').addClass('Test');
+                    Counter=0;
+                    correct=0;
+                    $( "#Explain" ).fadeOut( "slow", function() {
+                    document.getElementById("Explain").innerHTML="<h1>Mix</h1><h2>You have to use + or - or * or / signs with two random positive numbers. (Round down)</h2><h3>Examples:<br>13 + 56 = 69<br>77 - 15 = 62<br>36 * 9 = 324<br>81 / 9 = 9</h3><h2>If you want to test yourself click the quiz button below.</h2><div id='Quiz' onclick='Quiz(\"M\")'>Quiz</div>";
+                    $("#Explain").fadeIn("slow");
+                    });
+                }
+                else{
+                    Counter=0;
+                    correct=0;
+                    $( "#Explain" ).fadeOut( "slow", function() {
+                    document.getElementById("Explain").innerHTML="<h1>What to do:</h1><h2>Please choose one of the options in the menu on the left to continue.</h2><div id=\"Arrow\"><i class=\"fas fa-arrow-left\"></i></div>";
+                    $("#Explain").fadeIn("slow");
+                    });
+                }
+            }
+            
+            function Quiz(B){
+                flag =true;
+                if(B==='+'){
+                    Counter++;
+                    if(Counter===11){
+                        if(correct>7){
+                            var S="<h4>Congratulations<br><i class=\"fas fa-handshake\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Congratulations, you are ready to go to the next level!</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        else{
+                            var S="<h4>Hard Luck<br><i class=\"fas fa-thumbs-up\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Please ask your teacher for extra help.</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        Counter=0;
+                        correct=0;
+                        console.log(Counter);
+                        return;
+                    }
+                    var x=getRandomInt(100);
+                    var y=getRandomInt(100);
+                    z=x+y;
+                    var S="<br><br><br><br><h2>Please solve the following question and add your answer in the available textbox:</h2>"+C+"<h1>Question "+Counter+"</h1><h3>"+x+" + "+y+" = <form method='POST' action='' onsubmit='Check(\"+\",document.getElementById(\"answer\").value)'><input type='number' id='answer' name='answer' step='1' required><br><input type='submit' value='Next' class=\"next\"></form>"
+                    
+                    document.getElementById("Explain").innerHTML=S;
+                    
+                }
+                else if(B==='-'){
+                    Counter++;
+                    if(Counter===11){
+                        if(correct>7){
+                            var S="<h4>Congratulations<br><i class=\"fas fa-handshake\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Congratulations, you are ready to go to the next level!</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        else{
+                            var S="<h4>Hard Luck<br><i class=\"fas fa-thumbs-up\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Please ask your teacher for extra help.</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        Counter=0;
+                        correct=0;
+                        console.log(Counter);
+                        return;
+                    }
+                    var x=getRandomInt(100);
+                    var y=getRandomInt(100);
+                    z=x-y;
+                        var S="<br><br><br><br><h2>Please solve the following question and add your answer in the available textbox:</h2>"+C+"<h1>Question "+Counter+"</h1><h3>"+x+" - "+y+" = <form method='POST' action='' onsubmit='Check(\"-\",document.getElementById(\"answer\").value)'><input type='number' id='answer' name='answer' step='1' required><br><input type='submit' value='Next' class=\"next\"></form>"
+                    
+                        document.getElementById("Explain").innerHTML=S;
+                        
+                }
+                else if(B==='*'){
+                    Counter++;
+                    if(Counter===11){
+                        if(correct>7){
+                            var S="<h4>Congratulations<br><i class=\"fas fa-handshake\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Congratulations, you are ready to go to the next level!</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        else{
+                            var S="<h4>Hard Luck<br><i class=\"fas fa-thumbs-up\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Please ask your teacher for extra help.</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        Counter=0;
+                        correct=0;
+                        console.log(Counter);
+                        return;
+                    }
+                    var x=getRandomInt(25);
+                    var y=getRandomInt(25);
+                    z=x*y;
+                    var S="<br><br><br><br><h2>Please solve the following question and add your answer in the available textbox:</h2>"+C+"<h1>Question "+Counter+"</h1><h3>"+x+" * "+y+" = <form method='POST' action='' onsubmit='Check(\"*\",document.getElementById(\"answer\").value)'><input type='number' id='answer' name='answer' step='1' required><br><input type='submit' value='Next' class=\"next\"></form>"
+                    
+                        document.getElementById("Explain").innerHTML=S;
+                    
+                }
+                else if(B==='/'){
+                    Counter++;
+                    if(Counter===11){
+                        if(correct>7){
+                            var S="<h4>Congratulations<br><i class=\"fas fa-handshake\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Congratulations, you are ready to go to the next level!</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        else{
+                            var S="<h4>Hard Luck<br><i class=\"fas fa-thumbs-up\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Please ask your teacher for extra help.</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        Counter=0;
+                        correct=0;
+                        console.log(Counter);
+                        return;
+                    }
+                    var x=getRandomInt(100);
+                    var y=getRandomInt(100);
+                    if(y>x){
+                        var temp=x;
+                        x=y;
+                        y=temp;
+                    }
+                    if(y==0)
+                        y++;
+                    z=Math.floor(x/y)
+                    var S="<br><br><br><br><h2>Please solve the following question and add your answer in the available textbox (make sure you round down your answer):</h2>"+C+"<h1>Question "+Counter+"</h1><h3>"+x+" / "+y+" = <form method='POST' action='' onsubmit='Check(\"/\",document.getElementById(\"answer\").value)'><input type='number' id='answer' name='answer' step='1' required><br><input type='submit' value='Next' class=\"next\"></form>"
+                        
+                        document.getElementById("Explain").innerHTML=S;
+                        
+                }
+                else{
+                    Counter++;
+                    if(Counter===11){
+                        if(correct>7){
+                            var S="<h4>Congratulations<br><i class=\"fas fa-handshake\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Congratulations, you are ready to go to the next level!</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        else{
+                            var S="<h4>Hard Luck<br><i class=\"fas fa-thumbs-up\"></i></h4><h1 class=\"A1\">You scored:</h1><h4>"+correct*10+"%</h4><h1 class=\"A1\">Please ask your teacher for extra help.</h1><h2><button type=\"button\" id=\"reset\" onclick='operation(\"R\")'>Press here to reset</button></h2>"
+                            
+                            document.getElementById("Explain").innerHTML=S;
+                            
+                        }
+                        Counter=0;
+                        correct=0;
+                        console.log(Counter);
+                        return;
+                    }
+                    var x=getRandomInt(50);
+                    var y=getRandomInt(50);
+                    var j=getRandomInt(4);
+                    if(j===0){
+                        z=x+y;
+                        var k='+';
+                    }
+                    if(j===1){
+                        z=x-y;
+                        var k='-';
+                    }
+                    if(j===2){
+                        z=x*y;
+                        var k='*';
+                    }
+                    if(j===3){
+                        if(y>x){
+                        var temp=x;
+                        x=y;
+                        y=temp;
+                        }
+                        if(y==0)
+                        y++;
+                        z=Math.floor(x/y);
+                        var k='/';
+                    }
+                    var S="<br><br><br><br><h2>Please solve the following question and add your answer in the available textbox:</h2>"+C+"<h1>Question "+Counter+"</h1><h3>"+x+" "+k+" "+y+" = <form method='POST' action='' onsubmit='Check(\"M\",document.getElementById(\"answer\").value)'><input type='number' id='answer' name='answer' step='1' required><br><input type='submit' value='Next' class=\"next\"></form>"
+                    document.getElementById("Explain").innerHTML=S;
+                }
+            }
+    </script>
+    <style>
+        body{
+            background-color: #272932;
+        }
+        h1{
+            text-align: center;
+            font-size: 50px;
+            color: white;
+            margin-bottom: 50px;
+        }
+        h2{
+            color: #272932;
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 50px;
+        }
+        h3{
+            color: white;
+            background-color: #C57B57;
+            width: 500px;
+            font-size: 30px;
+            text-align: center;
+            margin: auto auto;
+            border: white solid;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 50px;
+        }
+        h4{
+            text-align: center;
+            color: white;
+            font-size: 80px;
+            margin-top: 10px;
+            margin-bottom: 50px;
+        }
+        h5{
+            text-align: center;
+        }
+        span{
+            color: black;
+            background-color: white;
+            border: black solid;
+            border-radius: 100px;
+            width: 70px;
+            height: 60px;
+            display: inline-block;
+            padding-top: 8px;
+            text-align: center;
+            font-size: 50px;
+            margin-right: 10px;
+        }
+        #reset{
+            color: white;
+            background-color: #C57B57;
+            font-size: 30px;
+            text-align: center;
+            border: white solid;
+            border-radius: 5px;
+        }
+        #reset:focus{
+            border: green solid;
+        }
+        .next{
+            width: 100px;
+            margin: 20px;
+            height: 50px;
+            font-size: large;
+            background-color: #7B9E87;
+            color: white;
+            border-radius: 10px;
+            border: white solid;
+            font-weight: bold;
+        }
+        .next:focus{
+            border: green solid;
+        }
+        .SR{
+            background-color: red;
+        }
+        .SG{
+            background-color: green;
+        }
+        .F1{
+            float: left;
+        }
+        li{
+            list-style: none;
+        }
+        .Buttons{
+            width: 250px;
+            margin: 10px;
+            height: 115px;
+            font-size: xx-large;
+            background-color: #7B9E87;
+            color: white;
+            border-radius: 10px;
+            border: white solid;
+            font-weight: bold;
+        }
+        .Test{
+            border: green solid;
+        }
+        #Explain{
+            width: 77%;
+            height: 680px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            border: white solid;
+            float: right;
+            background-color: #7B9E87;
+            border-radius: 20px;
+        }
+        #Arrow{
+            text-align: center;
+            font-size: 400px;
+            color: white;
+        }
+        #Quiz{
+            color: white;
+            background-color: #C57B57;
+            width: 150px;
+            font-size: 30px;
+            text-align: center;
+            margin: auto auto;
+            border: white solid;
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 50px;
+        }
+        .A1{
+            color: black;
+        }
+        #answer{
+            height: 30px;
+            border: #272932 solid 3px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="Explain">
+        <h1>What to do:</h1>
+        <h2>Please choose one of the options in the menu on the left to continue.</h2>
+        <div id="Arrow"><i class="fas fa-arrow-left"></i></div>
+    </div>
+    <form class="F1">
+        <ul>
+            <li><input type="button" id="I1" name="Addition" value="Addition" class="Buttons" onclick='operation("+")'></li>
+            <li><input type="button" id="I2" name="Subtraction" value="Subtraction" class="Buttons" onclick="operation('-')"></li>
+            <li><input type="button" id="I3" name="Multiplication" value="Multiplication" class="Buttons" onclick="operation('*')"></li>
+            <li><input type="button" id="I4" name="Division" value="Division" class="Buttons" onclick="operation('/')"></li>
+            <li><input type="button" id="I5" name="Mix" value="Mix" class="Buttons" onclick="operation('M')"></li>
+        </ul>
+    </form>
+</body>
+</html>
+
+<!-- 
+Assignment 2
+Section : 1 (1pm to 2pm)
+Doctor: Sara Tedmuri
+Anton Bahou 20190144
+Shadi Al Jaradat 20190329
+-->
